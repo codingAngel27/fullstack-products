@@ -6,7 +6,48 @@ El sistema permite registrar, listar, actualizar y eliminar productos, aplicando
 
 ![Listado de productos](docs/images/imgListado.png)
 ---
+## 🔍 Lógica de Estados de Productos
 
+### Estados Disponibles
+
+El sistema maneja **dos estados** para los productos en la base de datos:
+
+- **`A` - ACTIVO**: Producto visible y disponible
+- **`I` - INACTIVO**: Producto oculto (eliminación lógica)
+
+### ⚠️ Importante: Visualización de Estados
+
+**El listado de productos en el frontend SOLO muestra productos con estado ACTIVO (`A`).**
+
+Los productos con estado INACTIVO (`I`) **NO se visualizan** en la interfaz, pero permanecen en la base de datos para mantener la integridad referencial y el historial.
+
+### Flujo de Eliminación
+
+Cuando se elimina un producto:
+1. ❌ **NO se borra físicamente** de la base de datos
+2. 🔄 Su estado cambia de `A` a `I`
+3. 👁️ Deja de aparecer en el listado del frontend
+4. 💾 Se conserva en la base de datos para auditoría
+
+---
+
+## 📅 Gestión Automática de Fechas
+
+El sistema maneja automáticamente las siguientes fechas:
+
+### `fecha_creacion`
+- ✅ Se asigna **automáticamente** al crear un producto
+- 🔒 **No se puede modificar** manualmente
+- ⏰ Registra el timestamp exacto de creación
+
+### `fecha_modificacion`
+- ✅ Se actualiza **automáticamente** en cada modificación
+- 🔄 Se actualiza al editar cualquier campo del producto
+- ⏰ Registra el timestamp de la última modificación
+
+> **Nota**: El usuario **no debe preocuparse** por gestionar estas fechas, el sistema las controla de forma transparente.
+
+---
 ## 📋 **Tecnologías Utilizadas**
 
 | Tecnología | Versión / Descripción |
