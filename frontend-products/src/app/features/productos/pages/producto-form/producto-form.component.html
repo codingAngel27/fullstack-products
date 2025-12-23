@@ -1,0 +1,82 @@
+<div class="modal fade show d-block" tabindex="-1" role="dialog" style="background: rgba(0, 0, 0, 0.5)">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-lg border-0 rounded-3">
+
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title fw-bold">
+          <i class="bi bi-box-seam-fill me-2"></i>
+          {{ title }}
+        </h5>
+        <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="close()"></button>
+      </div>
+
+      <div class="modal-body p-4">
+        <form [formGroup]="productForm">
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="codigo" placeholder="Código" formControlName="codigo"
+              [ngClass]="{'is-invalid': productForm.get('codigo')?.touched && productForm.get('codigo')?.invalid}" />
+            <label for="codigo">Código</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="nombre" placeholder="Nombre del producto"
+              formControlName="nombre"
+              [ngClass]="{'is-invalid': productForm.get('nombre')?.touched && productForm.get('nombre')?.invalid}" />
+            <label for="nombre">Nombre</label>
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="marca" placeholder="Marca" formControlName="marca" />
+                <label for="marca">Marca</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="modelo" placeholder="Modelo" formControlName="modelo" />
+                <label for="modelo">Modelo</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="precio" placeholder="0.00" formControlName="precio"
+                  [ngClass]="{'is-invalid': productForm.get('precio')?.touched && productForm.get('precio')?.invalid}" />
+                <label for="precio">Precio</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="stock" placeholder="0" formControlName="stock"
+                  [ngClass]="{'is-invalid': productForm.get('stock')?.touched && productForm.get('stock')?.invalid}" />
+                <label for="stock">Stock</label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer border-top-0 d-flex justify-content-between">
+        <button class="btn btn-outline-secondary" (click)="close()">
+          <i class="bi bi-x-lg me-1"></i>
+          Cancelar
+        </button>
+
+        <button type="button" class="btn btn-success" (click)="save()" [disabled]="isSubmitting || productForm.invalid">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status"
+            aria-hidden="true"></span>
+          <i *ngIf="!isSubmitting" class="bi bi-check-lg me-1"></i>
+
+          {{ isSubmitting
+          ? (selectedProduct?.id ? 'Actualizando...' : 'Guardando...')
+          : (selectedProduct?.id ? 'Actualizar' : 'Guardar')
+          }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
